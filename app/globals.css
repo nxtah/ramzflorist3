@@ -1,26 +1,145 @@
+@font-face {
+  font-family: 'Magnetik';
+  src: url('/fonts/Magnetik-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Utility class for Magnetik Light font */
+.font-magnetik-light {
+  font-family: 'Magnetik', sans-serif;
+  font-weight: 300;
+}
 @import "tailwindcss";
+@config "../tailwind.config.js";
+
+/* shadcn/ui styles */
+/* shadcn/ui styles removed as file likely doesn't exist */
+
+
+/* Custom global styles and variables can be added below */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Elegant Pastel Purple Theme - Light Mode */
+  --radius: 0.75rem;
+  /* Slightly more rounded for softer feel */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --background: 0 0% 100%;
+  /* Pure White for cleanliness */
+  --foreground: 270 50% 15%;
+  /* Deep purple-black for text */
+
+  --card: 0 0% 100%;
+  --card-foreground: 270 50% 15%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 270 50% 15%;
+
+  --primary: 270 30% 70%;
+  /* Pastel Purple - Soft & Elegant */
+  --primary-foreground: 270 50% 10%;
+
+  --secondary: 270 20% 96%;
+  /* Very light purple tint */
+  --secondary-foreground: 270 50% 15%;
+
+  --muted: 270 10% 95%;
+  --muted-foreground: 270 10% 40%;
+  /* Soft Grey-Purple */
+
+  --accent: 270 25% 90%;
+  /* Highlight color */
+  --accent-foreground: 270 50% 15%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 270 10% 90%;
+  --input: 270 10% 90%;
+  --ring: 270 30% 70%;
+
+  --chart-1: 12 76% 61%;
+  --chart-2: 173 58% 39%;
+  --chart-3: 197 37% 24%;
+  --chart-4: 43 74% 66%;
+  --chart-5: 27 87% 67%;
+
+  --sidebar: 0 0% 98%;
+  --sidebar-foreground: 240 5.3% 26.1%;
+  --sidebar-primary: 270 30% 70%;
+  --sidebar-primary-foreground: 0 0% 98%;
+  --sidebar-accent: 270 20% 96%;
+  --sidebar-accent-foreground: 240 5.3% 26.1%;
+  --sidebar-border: 220 13% 91%;
+  --sidebar-ring: 217.2 91.2% 59.8%;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    /* You can add base styles here if needed */
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  .lenis.lenis-scrolling lg:hover,
+  .lenis.lenis-scrolling lg:hover * {
+    pointer-events: none !important;
+  }
 }
