@@ -1,12 +1,13 @@
 "use client";
-import BlossomingFlowers from "@/components/flowers/BlossomingFlowers";
+
+import HeroWithFlowers from "@/components/HeroWithFlowers";
 
 import * as React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Bouquet } from '@/components/bouquet-card';
-import { ArrowRight, Star, Truck, ShieldCheck, Heart, ChevronDown } from 'lucide-react';
+import { ArrowRight, Star, Truck, ShieldCheck, Heart, ChevronDown, Gift, Package } from 'lucide-react';
 import { BouquetCard } from '@/components/bouquet-card';
 
 interface LandingPageProps {
@@ -19,7 +20,7 @@ function AccordionItem({ q, a, isOpen, onClick }: { q: string; a: string; isOpen
         <div className="bg-white rounded-xl border border-primary-100/50 overflow-hidden transition-all duration-500 hover:shadow-[0_30px_60px_-12px_rgba(156,39,176,0.12)]">
             <button
                 onClick={onClick}
-                className="w-full flex items-center justify-between py-3 md:py-4 px-6 md:px-8 text-left focus:outline-none group min-h-0"
+                className="w-full flex items-center justify-between py-3 md:py-4 px-4 md:px-6 md:px-8 text-left focus:outline-none group min-h-0"
             >
                 <span className="font-heading text-lg md:text-xl font-bold text-primary-900 group-hover:text-primary-600 transition-colors pr-8 font-magnetik-light">{q}</span>
                 <div className={`shrink-0 w-12 h-12 rounded-full border border-primary-100 flex items-center justify-center transition-all duration-500 ${isOpen ? 'rotate-180 bg-primary-600 border-primary-600 text-white' : 'text-primary-400 bg-primary-50/50'}`}>
@@ -42,27 +43,31 @@ function AccordionItem({ q, a, isOpen, onClick }: { q: string; a: string; isOpen
 export default function LandingPage({ featuredBouquets, categories }: LandingPageProps) {
     const [openFaqIndex, setOpenFaqIndex] = React.useState<number | null>(0);
 
+    const categoryIcons: Record<string, React.ElementType> = {
+        "Mini Flower": Star,
+        "Fresh Flower": Heart,
+        "Artificial Flowers": ShieldCheck,
+        "Pipe Cleaner Flowers": SparkleIcon,
+        "Doll": Gift,
+        "Ballon": BalloonIcon,
+        "Butterfly": ButterflyIcon,
+        "Snack": Package,
+        "Money": MoneyIcon,
+        "Potted": LeafIcon,
+        "Doll Box": Gift,
+        "Hampers": Package,
+    };
+
+    const fallbackIcons = [Heart, Star, Gift, Package, ShieldCheck, Truck];
+
     return (
         <div className="flex flex-col min-h-screen">
             {/* Hero Section */}
-            <section className="relative min-h-screen w-full overflow-hidden bg-primary-100/30 flex items-center justify-center snap-start">
-                {/* BlossomingFlowers as flower asset, centered bottom (removed) */}
-                                {/* Rose background asset */}
-                <div className="absolute inset-0 z-0">
-                    {/* Abstract floral background shapes if no image */}
-                    <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-primary-200/40 to-transparent rounded-l-full transform translate-x-1/3 blur-3xl" />
-                    <div className="absolute bottom-0 left-0 w-1/2 h-full bg-gradient-to-r from-pink-200/40 to-transparent rounded-r-full transform -translate-x-1/3 blur-3xl" />
-                </div>
-
-                <div className="container relative z-0 px-4 text-center animate-fade-in-up">
-                    <h1 className="font-heading text-6xl md:text-9xl lg:text-[12rem] xl:text-[15rem] leading-none font-bold text-primary-900 tracking-[5px] uppercase">
-                        Ramz Florist3
-                    </h1>
-                </div>
-            </section>
+            <HeroWithFlowers />
 
             {/* Marquee Features Section */}
-            <section className="min-h-screen flex flex-col justify-center bg-primary-100/20 py-20 overflow-hidden snap-start">
+            <section className="relative -mt-12 md:-mt-16 min-h-screen flex flex-col justify-center bg-primary-100/20 pt-28 md:pt-32 pb-20 overflow-hidden snap-start">
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-16 md:h-20 bg-gradient-to-b from-primary-100/20 to-transparent" />
                 {/* Top Marquee - Moving Right (Reverse) */}
                 <div className="flex overflow-hidden py-4 bg-white/50 backdrop-blur-sm border-y border-primary-100/50 rotate-[-2deg] scale-110 mb-10">
                     <div className="flex animate-marquee-reverse whitespace-nowrap shrink-0">
@@ -94,7 +99,7 @@ export default function LandingPage({ featuredBouquets, categories }: LandingPag
 
             {/* Categories Scroller */}
             <section className="min-h-screen flex flex-col justify-center bg-secondary/20 overflow-hidden snap-start py-20">
-                <div className="container mx-auto px-4 mb-12 flex flex-col md:flex-row justify-between items-end gap-6">
+                <div className="container mx-auto max-w-screen-2xl px-4 md:px-6 mb-12 flex flex-col md:flex-row justify-between items-end gap-6">
                     <div>
                         <h2 className="font-heading text-4xl md:text-5xl font-bold text-primary-900 mb-4 font-magnetik-light">Jelajahi Kategori</h2>
                     </div>
@@ -103,18 +108,30 @@ export default function LandingPage({ featuredBouquets, categories }: LandingPag
                     </Button>
                 </div>
 
-                <div className="container mx-auto px-4">
+                <div className="container mx-auto max-w-screen-2xl px-4 md:px-6">
                     {/* Simple Marquee-like grid for categories */}
                     {/* Grid for categories - 2 rows */}
                     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
                         {categories.slice(0, 10).map((cat, idx) => (
-                            <Link href={`/shop?category=${encodeURIComponent(cat)}`} key={idx} className="group relative w-full h-48 md:h-60 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all cursor-pointer">
-                                <div className="absolute inset-0 bg-gradient-to-t from-primary-900/80 via-primary-900/20 to-transparent z-10 flex flex-col justify-end p-4 md:p-6">
-                                    <h3 className="font-heading text-xl md:text-2xl font-bold text-white group-hover:-translate-y-1 transition-transform duration-300 line-clamp-2">{cat}</h3>
-                                    <span className="text-white/90 text-xs md:text-sm font-medium tracking-wide opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">Lihat Koleksi</span>
+                            <Link href={`/shop?category=${encodeURIComponent(cat)}`} key={idx} className="group relative w-full h-48 md:h-60 rounded-2xl overflow-hidden bg-primary-100/70 border border-primary-200/80 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer">
+                                <div className="absolute inset-0 bg-gradient-to-br from-primary-50 via-primary-100/70 to-primary-200/60 group-hover:scale-105 transition-transform duration-700" />
+                                <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full bg-primary-200/70 blur-xl" />
+
+                                <div className="relative z-10 h-full p-4 md:p-6 flex flex-col justify-between">
+                                    {(() => {
+                                        const Icon = categoryIcons[cat] ?? fallbackIcons[idx % fallbackIcons.length];
+                                        return (
+                                            <div className="text-primary-700">
+                                                <Icon className="w-11 h-11 md:w-14 md:h-14 lg:w-16 lg:h-16 drop-shadow-sm transition-transform duration-300 group-hover:scale-110" />
+                                            </div>
+                                        );
+                                    })()}
+
+                                    <div>
+                                        <h3 className="font-heading text-lg md:text-2xl font-bold text-primary-900 group-hover:-translate-y-1 transition-transform duration-300 line-clamp-2">{cat}</h3>
+                                        <span className="text-primary-700 text-xs md:text-sm font-medium tracking-wide opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">Lihat Koleksi</span>
+                                    </div>
                                 </div>
-                                {/* Placeholder for category image */}
-                                <div className="absolute inset-0 bg-primary-100 group-hover:scale-110 transition-transform duration-700" />
                             </Link>
                         ))}
                     </div>
@@ -129,11 +146,11 @@ export default function LandingPage({ featuredBouquets, categories }: LandingPag
 
             {/* Featured Products */}
             <section className="min-h-screen flex flex-col justify-center bg-white snap-start py-20">
-                <div className="container mx-auto px-4 text-center mb-16">
-                    <h2 className="font-heading text-4xl md:text-5xl font-bold text-primary-900 mb-4 font-magnetik-light">Favorit Kami</h2>
+                <div className="container mx-auto max-w-screen-2xl px-4 md:px-6 text-center mb-16">
+                    <h2 className="font-heading text-4xl md:text-5xl font-bold text-primary-900 mb-4 font-magnetik-light">Bunga Untukmu</h2>
                 </div>
 
-                <div className="container mx-auto px-4">
+                <div className="container mx-auto max-w-screen-2xl px-4 md:px-6">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                         {featuredBouquets.slice(0, 8).map((bouquet) => (
                             <BouquetCard key={bouquet.id} bouquet={bouquet} />
@@ -154,7 +171,7 @@ export default function LandingPage({ featuredBouquets, categories }: LandingPag
 
             {/* FAQ Section */}
             <section className="min-h-screen flex items-center bg-secondary/10 snap-start py-32">
-                <div className="container mx-auto px-4">
+                <div className="container mx-auto max-w-screen-2xl px-4 md:px-6">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
                         {/* Left Side: Header */}
                         <div className="lg:col-span-5 lg:sticky lg:top-32">
@@ -215,29 +232,115 @@ export default function LandingPage({ featuredBouquets, categories }: LandingPag
                 </div>
             </section>
 
-            {/* CTA / Newsletter */}
-            <section className="min-h-screen flex items-center justify-center bg-primary-900 text-white relative overflow-hidden snap-start py-20">
-                {/* Decorative Circles */}
-                <div className="absolute top-0 left-0 w-96 h-96 bg-white/5 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl" />
-                <div className="absolute bottom-0 right-0 w-[30rem] h-[30rem] bg-primary-500/20 rounded-full translate-x-1/3 translate-y-1/3 blur-3xl" />
+            {/* Why Choose Us Section */}
+            <section className="min-h-screen flex items-center justify-center bg-white relative overflow-hidden snap-start py-20">
+                <div className="container relative z-10 mx-auto px-4 md:px-6 max-w-screen-2xl">
+                    <div className="text-center mb-16">
+                        <span className="inline-block py-1 px-3 rounded-full bg-primary-50 text-primary-700 text-xs font-semibold tracking-wider uppercase mb-6">
+                            Keunggulan Kami
+                        </span>
+                        <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-primary-900 mb-6 font-magnetik-light">
+                            Mengapa Memilih Ramz Florist?
+                        </h2>
+                        <p className="font-body text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+                            Komitmen kami adalah memberikan bunga terbaik dengan layanan sepenuh hati untuk setiap momen spesial Anda.
+                        </p>
+                    </div>
 
-                <div className="container relative z-10 mx-auto px-4 text-center">
-                    <h2 className="font-heading text-5xl md:text-7xl font-bold mb-8 leading-tight">Siap Membuat<br />Seseorang Tersenyum?</h2>
-                    <p className="text-primary-100 text-xl md:text-2xl max-w-2xl mx-auto mb-12 leading-relaxed">
-                        Pesan sekarang dan dapatkan diskon 10% untuk pembelian pertama dengan kode <span className="font-bold text-white bg-white/20 px-3 py-1 rounded-lg ml-1">BLOOM10</span>
-                    </p>
-                    <div className="flex flex-col sm:flex-row justify-center gap-4 max-w-lg mx-auto w-full">
-                        <input
-                            type="email"
-                            placeholder="Masukkan alamat email Anda"
-                            className="flex-1 px-8 py-5 rounded-full bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 text-lg"
-                        />
-                        <Button className="rounded-full px-10 py-8 bg-white text-primary-900 hover:bg-primary-50 font-bold text-lg">
-                            Berlangganan
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {[
+                            {
+                                icon: <ShieldCheck className="w-8 h-8 md:w-10 md:h-10 text-primary-600" />,
+                                title: "Kualitas Terjamin",
+                                desc: "Setiap batang bunga melewati proses quality control ketat untuk memastikan kesegaran yang tahan lama."
+                            },
+                            {
+                                icon: <Truck className="w-8 h-8 md:w-10 md:h-10 text-primary-600" />,
+                                title: "Pengiriman Cepat",
+                                desc: "Layanan pengiriman aman dan tepat waktu untuk wilayah Jakarta dan sekitarnya."
+                            },
+                            {
+                                icon: <Heart className="w-8 h-8 md:w-10 md:h-10 text-primary-600" />,
+                                title: "Dibuat dengan Cinta",
+                                desc: "Dirangkai oleh tangan ahli yang berpengalaman dengan perhatian penuh pada setiap detail."
+                            },
+                            {
+                                icon: <Star className="w-8 h-8 md:w-10 md:h-10 text-primary-600" />,
+                                title: "Desain Eksklusif",
+                                desc: "Rangkaian bunga modern dan estetis yang dirancang khusus untuk memukau penerimanya."
+                            }
+                        ].map((item, i) => (
+                            <div key={i} className="group p-8 rounded-3xl bg-secondary/10 border border-primary-100 hover:border-primary-300 hover:bg-primary-50/50 transition-all duration-300 text-center hover:-translate-y-2">
+                                <div className="mx-auto w-16 h-16 md:w-20 md:h-20 bg-white rounded-full flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 transition-transform duration-300">
+                                    {item.icon}
+                                </div>
+                                <h3 className="font-heading text-xl md:text-2xl font-bold text-primary-900 mb-4">{item.title}</h3>
+                                <p className="text-muted-foreground leading-relaxed">
+                                    {item.desc}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="mt-16 text-center">
+                        <Button 
+                            className="rounded-full px-10 py-7 text-lg bg-primary-800 text-white hover:bg-primary-900 shadow-lg hover:shadow-xl transition-all hover:scale-105"
+                            asChild
+                        >
+                            <Link href="/shop">Mulai Pesan Sekarang</Link>
                         </Button>
                     </div>
                 </div>
             </section>
         </div>
+    );
+}
+
+function SparkleIcon(props: React.SVGProps<SVGSVGElement>) {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" {...props}>
+            <path d="M12 3l1.7 3.8L18 8.5l-3.3 2.3.8 3.9-3.5-2-3.5 2 .8-3.9L6 8.5l4.3-1.7L12 3z" />
+            <path d="M19 15l.8 1.7 1.7.8-1.7.8-.8 1.7-.8-1.7-1.7-.8 1.7-.8.8-1.7z" />
+        </svg>
+    );
+}
+
+function BalloonIcon(props: React.SVGProps<SVGSVGElement>) {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" {...props}>
+            <path d="M12 3c-3.3 0-6 2.6-6 5.9 0 3.1 2.1 5.6 5 6.2v2.4l-1.2 2.1h4.4L13 17.5V15c2.9-.6 5-3.1 5-6.2C18 5.6 15.3 3 12 3z" />
+            <path d="M12 20.5V22" />
+        </svg>
+    );
+}
+
+function ButterflyIcon(props: React.SVGProps<SVGSVGElement>) {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" {...props}>
+            <path d="M12 11c-2-3.5-5.5-4.8-7.5-3S3 13.5 6 15s4.5-.5 6-4z" />
+            <path d="M12 11c2-3.5 5.5-4.8 7.5-3S21 13.5 18 15s-4.5-.5-6-4z" />
+            <path d="M12 11c-2 3.5-1.8 6.8.5 7.8 2.3 1 4.4-1.4 3.5-4.3-.7-2.3-2.2-3.2-4-3.5z" />
+            <path d="M12 11c2 3.5 1.8 6.8-.5 7.8-2.3 1-4.4-1.4-3.5-4.3.7-2.3 2.2-3.2 4-3.5z" />
+            <path d="M12 4v7" />
+        </svg>
+    );
+}
+
+function MoneyIcon(props: React.SVGProps<SVGSVGElement>) {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" {...props}>
+            <rect x="3" y="6" width="18" height="12" rx="2" />
+            <circle cx="12" cy="12" r="2.5" />
+            <path d="M7 9.5h.01M17 14.5h.01" />
+        </svg>
+    );
+}
+
+function LeafIcon(props: React.SVGProps<SVGSVGElement>) {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" {...props}>
+            <path d="M20 4c-8.5 0-14 4.4-14 11.2 0 3.1 2.5 5.8 5.8 5.8 6.8 0 11.2-5.5 11.2-14z" />
+            <path d="M8 16c2-2 4.2-3.9 7.5-5.5" />
+        </svg>
     );
 }

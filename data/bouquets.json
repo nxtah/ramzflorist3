@@ -1,98 +1,100 @@
 [
-    {
-        "id": 1,
-        "name": "Velvet Romance",
-        "price": 450000,
-        "category": "Fresh Flower",
-        "images": [
-            "/images/bouquet-1.jpg"
-        ],
-        "stock": 10,
-        "description": "A deep red rose bouquet wrapped in elegant black paper, perfect for romantic gestures.",
-        "isFeatured": true
-    },
-    {
-        "id": 2,
-        "name": "Pastel Dream",
-        "price": 350000,
-        "category": "Fresh Flower",
-        "images": [
-            "/images/bouquet-2.jpg"
-        ],
-        "stock": 5,
-        "description": "Soft pink and white roses mixed with baby's breath for a gentle, dreamy look.",
-        "isFeatured": true
-    },
-    {
-        "id": 3,
-        "name": "Sunny Days",
-        "price": 275000,
-        "category": "Artificial Flowers",
-        "images": [
-            "/images/bouquet-3.jpg"
-        ],
-        "stock": 8,
-        "description": "Bright sunflowers that never fade, bringing sunshine to any room.",
-        "isFeatured": false
-    },
-    {
-        "id": 4,
-        "name": "Purple Haze",
-        "price": 320000,
-        "category": "Pipe Cleaner Flowers",
-        "images": [
-            "/images/bouquet-4.jpg"
-        ],
-        "stock": 12,
-        "description": "Unique handcrafted pipe cleaner flowers in shades of purple and lavender.",
-        "isFeatured": true
-    },
-    {
-        "id": 5,
-        "name": "Sweet Tooth",
-        "price": 150000,
-        "category": "Snack",
-        "images": [
-            "/images/bouquet-5.jpg"
-        ],
-        "stock": 20,
-        "description": "A fun arrangement of popular chocolates and snacks.",
-        "isFeatured": false
-    },
-    {
-        "id": 6,
-        "name": "Graduation Bear",
-        "price": 200000,
-        "category": "Doll",
-        "images": [
-            "/images/bouquet-6.jpg"
-        ],
-        "stock": 15,
-        "description": "Cute teddy bear with graduation gown surrounded by artificial flowers.",
-        "isFeatured": true
-    },
-    {
-        "id": 7,
-        "name": "Golden Fortune",
-        "price": 1200000,
-        "category": "Money",
-        "images": [
-            "/images/bouquet-7.jpg"
-        ],
-        "stock": 3,
-        "description": "Real banknotes arranged into a stunning flower shape. Price is for service fee only.",
-        "isFeatured": true
-    },
-    {
-        "id": 8,
-        "name": "Butterfly Kisses",
-        "price": 180000,
-        "category": "Butterfly",
-        "images": [
-            "/images/bouquet-8.jpg"
-        ],
-        "stock": 0,
-        "description": "Magical bouquet with LED butterflies that glow in the dark.",
-        "isFeatured": false
-    }
+  {
+    "id": 2,
+    "name": "Pastel Dream",
+    "price": 350000,
+    "category": "Fresh Flower",
+    "images": [
+      "/images/bouquet-2.jpg"
+    ],
+    "stock": 5,
+    "description": "Soft pink and white roses mixed with baby's breath for a gentle, dreamy look.",
+    "isFeatured": true
+  },
+  {
+    "id": 3,
+    "name": "Sunny Days",
+    "price": 275000,
+    "category": "Artificial Flowers",
+    "images": [
+      "/images/bouquet-3.jpg"
+    ],
+    "stock": 8,
+    "description": "Bright sunflowers that never fade, bringing sunshine to any room.",
+    "isFeatured": false
+  },
+  {
+    "id": 4,
+    "name": "Purple Haze",
+    "price": 320000,
+    "category": "Pipe Cleaner Flowers",
+    "images": [
+      "/images/bouquet-4.jpg"
+    ],
+    "stock": 12,
+    "description": "Unique handcrafted pipe cleaner flowers in shades of purple and lavender.",
+    "isFeatured": true
+  },
+  {
+    "id": 5,
+    "name": "Sweet Tooth",
+    "price": 150000,
+    "category": "Snack",
+    "images": [
+      "/images/bouquet-5.jpg"
+    ],
+    "stock": 20,
+    "description": "A fun arrangement of popular chocolates and snacks.",
+    "isFeatured": false
+  },
+  {
+    "id": 6,
+    "name": "Graduation Bear",
+    "price": 200000,
+    "category": "Doll",
+    "images": [
+      "/images/bouquet-6.jpg"
+    ],
+    "stock": 15,
+    "description": "Cute teddy bear with graduation gown surrounded by artificial flowers.",
+    "isFeatured": true
+  },
+  {
+    "id": 7,
+    "name": "Golden Fortune",
+    "price": 1200000,
+    "category": "Money",
+    "images": [
+      "/images/bouquet-7.jpg"
+    ],
+    "stock": 3,
+    "description": "Real banknotes arranged into a stunning flower shape. Price is for service fee only.",
+    "isFeatured": true
+  },
+  {
+    "id": 8,
+    "name": "Butterfly Kisses",
+    "price": 180000,
+    "category": "Butterfly",
+    "images": [
+      "/images/bouquet-8.jpg"
+    ],
+    "stock": 0,
+    "description": "Magical bouquet with LED butterflies that glow in the dark.",
+    "isFeatured": false
+  },
+  {
+    "id": 9,
+    "name": "sdfghj",
+    "price": 1000000,
+    "stock": 12,
+    "category": "Wedding Bouquet",
+    "images": [
+      "https://res.cloudinary.com/dimw2tqof/image/upload/v1774713598/ramz-florist3/Wedding%20Bouquet/ieate2kaoml7vd9dloim.png"
+    ],
+    "description": "tesss",
+    "isFeatured": true,
+    "createdAt": "2026-03-28T16:00:20.413Z",
+    "updatedAt": "2026-03-28T16:00:20.413Z"
+  }
 ]

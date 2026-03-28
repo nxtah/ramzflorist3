@@ -13,7 +13,7 @@ export function Footer() {
                 <div className="absolute top-[30%] right-[0%] w-[40%] h-[60%] bg-pink-500/10 rounded-full blur-3xl opacity-50" />
             </div>
 
-            <div className="container relative z-10 mx-auto px-4 pt-20 pb-10 md:pt-32 md:pb-12 h-full flex flex-col justify-between min-h-[90vh] md:min-h-[auto]">
+            <div className="container relative z-10 mx-auto px-4 pt-16 pb-8 md:pt-24 md:pb-10 h-full flex flex-col justify-between min-h-[860px] md:min-h-[620px]">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 mb-20">
                     {/* Brand Section */}
                     <div className="lg:col-span-6 flex flex-col justify-between h-full">
@@ -57,19 +57,17 @@ export function Footer() {
                     {/* Navigation Links */}
                     <div className="lg:col-span-3 lg:col-start-8">
                         <h3 className="font-body text-sm font-semibold text-white/50 uppercase tracking-widest mb-8">Menu</h3>
-                        <ul className="space-y-4">
+                        <ul className="space-y-4 mb-8">
                             {[
                                 { name: 'Beranda', href: '/' },
                                 { name: 'Koleksi Toko', href: '/shop' },
                                 { name: 'Tentang Kami', href: '/about' },
                                 { name: 'Kontak', href: '/contact' },
-                                { name: 'Syarat Layanan', href: '#' },
-                                { name: 'Kebijakan Privasi', href: '#' },
                             ].map((item) => (
                                 <li key={item.name}>
                                     <Link
                                         href={item.href}
-                                        className="font-heading text-3xl md:text-4xl text-white hover:text-primary-300 hover:pl-4 transition-all duration-300 flex items-center group"
+                                        className="font-heading text-2xl md:text-3xl text-white hover:text-primary-300 hover:pl-4 transition-all duration-300 flex items-center group"
                                     >
                                         {item.name}
                                         <ArrowUpRight className="w-5 h-5 ml-2 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -77,6 +75,7 @@ export function Footer() {
                                 </li>
                             ))}
                         </ul>
+                        {/* Legal/policy links removed as requested */}
                     </div>
                 </div>
 

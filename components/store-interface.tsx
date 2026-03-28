@@ -57,7 +57,7 @@ export default function StoreInterface({ categories, initialBouquets }: StoreInt
     }, [selectedCategory, initialBouquets]);
 
     return (
-        <div className="container mx-auto px-4 py-8 md:py-12">
+        <div className="container mx-auto max-w-screen-2xl px-6 py-8 md:py-12">
             {/* Hero / Header Section */}
             <div className="text-center mb-12 md:mb-16 space-y-4">
                 <h1 className="font-heading text-4xl md:text-6xl font-bold text-primary-900">
@@ -123,7 +123,7 @@ export default function StoreInterface({ categories, initialBouquets }: StoreInt
                     </div>
 
                     {filteredBouquets.length > 0 ? (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
                             {filteredBouquets.map((bouquet) => (
                                 <BouquetCard key={bouquet.id} bouquet={bouquet} />
                             ))}

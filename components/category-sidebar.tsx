@@ -54,10 +54,10 @@ export function CategorySidebar({ categories, selectedCategory, onSelectCategory
             </div>
 
             <div className="bg-primary-500/10 rounded-2xl p-6 text-center">
-                <h4 className="font-heading text-lg font-bold text-primary-900 mb-2">Need Custom Request?</h4>
-                <p className="text-sm text-primary-800/80 mb-4">We can create a unique bouquet just for you.</p>
+                <h4 className="font-heading text-lg font-bold text-primary-900 mb-2">Butuh Request Kustom?</h4>
+                <p className="text-sm text-primary-800/80 mb-4">Kami bisa membuat bouquet unik khusus untuk kamu.</p>
                 <Link href="/contact" className="text-sm font-semibold text-primary-700 hover:text-primary-900 underline underline-offset-4">
-                    Contact Us
+                    Hubungi Kami
                 </Link>
             </div>
         </div>

@@ -54,6 +54,8 @@ export async function POST(req: Request) {
     stock: body.stock,
     category: body.category,
     images: body.images,
+    description: body.description || "",
+    isFeatured: body.isFeatured || false,
     createdAt: now,
     updatedAt: now,
   };

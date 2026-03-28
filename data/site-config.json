@@ -1,35 +1,44 @@
 {
-    "siteName": "Ramz Florist",
-    "siteDescription": "Premium floral arrangements for life's most beautiful moments.",
-    "contact": {
-        "phone": "+62 812-3456-7890",
-        "email": "hello@ramzflorist.com",
-        "address": "Jl. Bunga Melati No. 123, Jakarta, Indonesia",
-        "instagram": "https://instagram.com/ramzflorist",
-        "whatsapp": "https://wa.me/6281234567890"
+  "siteName": "Ramz Florist",
+  "siteDescription": "Premium floral arrangements for life's most beautiful moments.",
+  "contact": {
+    "phone": "+62 812-3456-7890",
+    "email": "hello@ramzflorist.com",
+    "address": "Jl. Bunga Melati No. 123, Jakarta, Indonesia",
+    "instagram": "https://instagram.com/ramzflorist",
+    "whatsapp": "https://wa.me/6281234567890"
+  },
+  "hero": {
+    "title": "Blossoming Your Special Moments",
+    "subtitle": "Handcrafted bouquets designed with passion and elegance. Perfect for weddings, anniversaries, or just because.",
+    "ctaText": "Shop Collection",
+    "ctaLink": "/shop",
+    "image": "/images/hero-bouquet.jpg"
+  },
+  "features": [
+    {
+      "title": "Fresh Flowers Daily",
+      "description": "Sourced directly from local gardens every morning.",
+      "icon": "Flower"
     },
-    "hero": {
-        "title": "Blossoming Your Special Moments",
-        "subtitle": "Handcrafted bouquets designed with passion and elegance. Perfect for weddings, anniversaries, or just because.",
-        "ctaText": "Shop Collection",
-        "ctaLink": "/shop",
-        "image": "/images/hero-bouquet.jpg"
+    {
+      "title": "Custom Arrangements",
+      "description": "Tailored designs to match your unique style and occasion.",
+      "icon": "Palette"
     },
-    "features": [
-        {
-            "title": "Fresh Flowers Daily",
-            "description": "Sourced directly from local gardens every morning.",
-            "icon": "Flower"
-        },
-        {
-            "title": "Custom Arrangements",
-            "description": "Tailored designs to match your unique style and occasion.",
-            "icon": "Palette"
-        },
-        {
-            "title": "Same day Delivery",
-            "description": "Order before 2 PM for delivery today.",
-            "icon": "Truck"
-        }
+    {
+      "title": "Same day Delivery",
+      "description": "Order before 2 PM for delivery today.",
+      "icon": "Truck"
+    }
+  ],
+  "banner": {
+    "text": "dapatkan diskon gratis",
+    "isActive": true
+  },
+  "about": {
+    "images": [
+      "https://res.cloudinary.com/dimw2tqof/image/upload/v1774717474/ramz-florist3/about-us/msb5t7kzggekxcgjh724.png"
     ]
+  }
 }

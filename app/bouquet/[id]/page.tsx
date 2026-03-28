@@ -1,11 +1,11 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { readBouquets } from '@/lib/json-db';
-import { Button } from '@/components/ui/button';
+import { readBouquets, readSiteConfig } from '@/lib/json-db';
 import { Badge } from '@/components/ui/badge';
 import { BouquetCard } from '@/components/bouquet-card';
-import { ArrowLeft, MessageCircle, ShoppingBag, Truck, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, Truck, ShieldCheck } from 'lucide-react';
+import { BouquetOrderPanel } from '@/components/bouquet-order-panel';
 
 export async function generateStaticParams() {
   const bouquets = await readBouquets();
@@ -15,6 +15,7 @@ export async function generateStaticParams() {
 export default async function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const bouquets = await readBouquets();
+  const siteConfig = await readSiteConfig();
   const bouquetId = parseInt(id);
   const bouquet = bouquets.find((b: any) => b.id === bouquetId);
 
@@ -44,7 +45,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           href="/shop"
           className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-primary-800 transition-colors"
         >
-          <ArrowLeft className="w-4 h-4 mr-2" /> Back to Shop
+          <ArrowLeft className="w-4 h-4 mr-2" /> Kembali ke Toko
         </Link>
       </div>
 
@@ -62,7 +63,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             />
             {bouquet.stock <= 0 && (
               <div className="absolute top-4 left-4 z-20">
-                <Badge variant="destructive" className="text-lg px-4 py-2">Sold Out</Badge>
+                <Badge variant="destructive" className="text-lg px-4 py-2">Stok Habis</Badge>
               </div>
             )}
           </div>
@@ -105,30 +106,26 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           </div>
 
           <p className="font-body text-lg text-muted-foreground leading-relaxed mb-8 border-b border-dashed border-primary-100 pb-8">
-            {bouquet.description || "A beautiful arrangement suitable for any occasion."}
+            {bouquet.description || "Rangkaian bunga indah untuk berbagai momen spesial."}
           </p>
 
           <div className="space-y-6 mb-8">
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="flex-1 rounded-full text-lg h-14 bg-primary-800 hover:bg-primary-900 shadow-lg shadow-primary-500/20" disabled={bouquet.stock <= 0}>
-                <ShoppingBag className="w-5 h-5 mr-3" />
-                {bouquet.stock > 0 ? 'Add to Cart' : 'Out of Stock'}
-              </Button>
-              <Button size="lg" variant="outline" className="flex-1 rounded-full text-lg h-14 border-primary-200 text-primary-800 hover:bg-primary-50">
-                <MessageCircle className="w-5 h-5 mr-3" />
-                Chat via WhatsApp
-              </Button>
-            </div>
+            <BouquetOrderPanel
+              bouquetName={bouquet.name}
+              bouquetPrice={bouquet.price}
+              bouquetStock={bouquet.stock}
+              whatsappBaseUrl={siteConfig?.contact?.whatsapp}
+            />
 
             {/* Trust Badges */}
             <div className="grid grid-cols-2 gap-4 text-sm text-muted-foreground pt-4">
               <div className="flex items-center gap-3 p-3 rounded-xl bg-secondary/30">
                 <Truck className="w-5 h-5 text-primary-600" />
-                <span>Same-day Delivery</span>
+                <span>Pengiriman cepat dan aman</span>
               </div>
               <div className="flex items-center gap-3 p-3 rounded-xl bg-secondary/30">
                 <ShieldCheck className="w-5 h-5 text-primary-600" />
-                <span>Freshness Guaranteed</span>
+                <span>Jaminan Bunga Segar</span>
               </div>
             </div>
           </div>
@@ -139,7 +136,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
       {relatedBouquets.length > 0 && (
         <div className="border-t border-primary-100 pt-16">
           <h2 className="font-heading text-3xl font-bold text-primary-900 mb-8 text-center">
-            You May Also Like
+            Rekomendasi Lainnya
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {relatedBouquets.map((b: any) => (

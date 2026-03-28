@@ -31,42 +31,39 @@ export function BouquetCard({ bouquet }: BouquetCardProps) {
     };
 
     return (
-        <Card className="group overflow-hidden rounded-2xl border-none shadow-sm hover:shadow-xl transition-all duration-500 bg-transparent">
-            <CardContent className="p-0 relative aspect-square overflow-hidden bg-transparent">
-                {bouquet.stock <= 0 && (
-                    <div className="absolute top-3 left-3 z-20">
-                        <Badge variant="destructive" className="bg-red-500/90 hover:bg-red-600 border-none text-white px-3 py-1">Sold Out</Badge>
-                    </div>
-                )}
-
-                <Link href={`/bouquet/${bouquet.id}`} className="block relative w-full h-full">
+        <Card className="group overflow-hidden rounded-3xl border border-primary-100 bg-white shadow-lg hover:shadow-[0_8px_32px_rgba(156,39,176,0.10)] transition-all duration-300 flex flex-col relative">
+            <div className="relative aspect-[4/5] w-full overflow-hidden">
+                <Link href={`/bouquet/${bouquet.id}`} className="block w-full h-full">
                     <Image
-                        src={(bouquet.images && bouquet.images.length > 0 ? bouquet.images[0] : '/placeholder-flower.jpg')}
+                        src={bouquet.images && bouquet.images.length > 0 ? bouquet.images[0] : '/placeholder-flower.jpg'}
                         alt={bouquet.name}
                         fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        className="object-cover transition-transform duration-700 group-hover:scale-110 group-hover:brightness-95"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        priority={false}
                     />
+                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-white/90 via-white/40 to-transparent z-10" />
                 </Link>
-                {/* Gradient overlay for text readability on hover if needed, though clean is better */}
-                <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </CardContent>
-            <CardFooter className="flex flex-col items-start p-5">
-                <div className="flex w-full items-center justify-between gap-2 mb-2">
+                {bouquet.stock <= 0 && (
+                    <div className="absolute top-3 left-3 z-20">
+                        <Badge variant="destructive" className="bg-red-500/90 hover:bg-red-600 border-none text-white px-3 py-1 text-xs shadow">Sold Out</Badge>
+                    </div>
+                )}
+            </div>
+            <CardFooter className="flex flex-col gap-2 items-start p-5 pt-4 flex-1 w-full">
+                <div className="flex w-full items-center justify-between gap-2 mb-1">
                     <Badge variant="secondary" className="bg-primary-50 text-primary-700 hover:bg-primary-100 text-[10px] uppercase tracking-wider font-semibold border-none px-2 py-0.5">
                         {bouquet.category}
                     </Badge>
-                    <span className="font-heading font-bold text-2xl md:text-3xl text-primary-900">
+                    <span className="font-heading font-bold text-xl md:text-2xl text-primary-900">
                         {formatPrice(bouquet.price)}
                     </span>
                 </div>
-                <h3 className="font-body text-base font-semibold text-charcoal group-hover:text-primary-700 transition-colors line-clamp-1 pl-[0.5rem]" title={bouquet.name}>
-                    <Link href={`/bouquet/${bouquet.id}`}>
-                        {bouquet.name}
-                    </Link>
+                <h3 className="font-body text-base font-semibold text-charcoal group-hover:text-primary-700 transition-colors line-clamp-2" title={bouquet.name}>
+                    <Link href={`/bouquet/${bouquet.id}`}>{bouquet.name}</Link>
                 </h3>
-                {/* <p className="text-sm text-muted-foreground mt-1 line-clamp-2">Beautiful arrangement of fresh flowers...</p> */}
             </CardFooter>
+            <div className="absolute inset-0 rounded-3xl ring-0 group-hover:ring-4 group-hover:ring-primary-200/40 transition-all duration-300 pointer-events-none" />
         </Card>
     );
 }

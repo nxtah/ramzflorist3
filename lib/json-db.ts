@@ -36,6 +36,10 @@ export async function readCategories() {
   }
 }
 
+export async function writeCategories(data: string[]) {
+  await fs.writeFile(categoriesPath, JSON.stringify(data, null, 2), 'utf-8');
+}
+
 export async function readSiteConfig() {
   try {
     const data = await fs.readFile(siteConfigPath, 'utf-8');
@@ -46,6 +50,10 @@ export async function readSiteConfig() {
   }
 }
 
+export async function writeSiteConfig(data: any) {
+  await fs.writeFile(siteConfigPath, JSON.stringify(data, null, 2), 'utf-8');
+}
+
 const DEFAULT_CONFIG = {
   siteName: "Ramz Florist",
   siteDescription: "Elegant Florist & Bouquet Shop",
@@ -53,6 +61,13 @@ const DEFAULT_CONFIG = {
   hero: {
     title: "Welcome to Ramz Florist",
     subtitle: "Beautiful flowers for every occasion."
+  },
+  banner: {
+    text: "Welcome to Ramz Florist! Enjoy our latest collections.",
+    isActive: false
+  },
+  about: {
+    images: []
   },
   features: []
 };
