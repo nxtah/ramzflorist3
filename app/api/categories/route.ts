@@ -1,33 +1,41 @@
 import { NextResponse } from 'next/server';
-import { readCategories, writeCategories } from '@/lib/json-db';
-import { verifyToken } from '@/lib/auth';
+import { verifyAuth } from '@/lib/auth';
+import { prisma } from '@/lib/prisma';
 
 export async function GET() {
-  const categories = await readCategories();
-  return NextResponse.json(categories);
+  try {
+    const categories = await prisma.category.findMany({
+      orderBy: { createdAt: 'desc' }
+    });
+    return NextResponse.json(categories.map(c => c.name));
+  } catch (error) {
+    return NextResponse.json([], { status: 500 });
+  }
 }
 
 export async function POST(req: Request) {
-  const auth = req.headers.get('authorization');
-  if (!auth || !auth.startsWith('Bearer ')) {
-    return NextResponse.json('Unauthorized', { status: 401 });
-  }
-  const token = auth.split(' ')[1];
-  if (!verifyToken(token)) {
-    return NextResponse.json('Unauthorized', { status: 401 });
-  }
-  
-  const { category } = await req.json();
-  if (!category || typeof category !== 'string') {
-    return NextResponse.json('Invalid category name', { status: 400 });
-  }
+  try {
+    const isAuth = verifyAuth(req);
+    if (!isAuth) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
 
-  const categories = await readCategories();
-  // Ensure it doesn't already exist
-  if (!categories.includes(category.trim())) {
-    categories.push(category.trim());
-    await writeCategories(categories);
+    const body = await req.json();
+    if (!body.name) {
+      return NextResponse.json({ error: 'Category name is required' }, { status: 400 });
+    }
+
+    const newCategory = await prisma.category.create({
+      data: { name: body.name }
+    });
+
+    const categories = await prisma.category.findMany({
+      orderBy: { createdAt: 'desc' }
+    });
+
+    return NextResponse.json(categories.map(c => c.name), { status: 201 });
+  } catch (error) {
+    console.error("Failed to add category", error);
+    return NextResponse.json({ error: 'Failed to add category' }, { status: 500 });
   }
-  
-  return NextResponse.json(categories, { status: 201 });
 }

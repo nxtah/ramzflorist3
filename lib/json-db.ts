@@ -1,57 +1,94 @@
-import { promises as fs } from 'fs';
-import path from 'path';
-
-const dataDir = path.join(process.cwd(), 'data');
-const bouquetsPath = path.join(dataDir, 'bouquets.json');
-const categoriesPath = path.join(dataDir, 'categories.json');
-const siteConfigPath = path.join(dataDir, 'site-config.json');
+import { prisma } from './prisma';
 
 export async function readBouquets() {
   try {
-    const data = await fs.readFile(bouquetsPath, 'utf-8');
-    return JSON.parse(data);
-  } catch (err: any) {
-    if (err.code === 'ENOENT') return [];
-    throw err;
+    const bouquets = await prisma.bouquet.findMany({
+      orderBy: { createdAt: 'desc' }
+    });
+    return bouquets;
+  } catch (err) {
+    console.error("Error reading bouquets from database", err);
+    return [];
   }
 }
 
 export async function writeBouquets(data: any[]) {
-  await fs.writeFile(bouquetsPath, JSON.stringify(data, null, 2), 'utf-8');
+  // We no longer overwrite the whole array as we are in a relational database.
+  // The app/api/bouquets routes should be updated to use prisma directly.
+  // This is left here just in case, but shouldn't be used directly like fs.writeFile
 }
 
 export async function getNextId() {
-  const bouquets = await readBouquets();
-  if (!bouquets.length) return 1;
-  return Math.max(...bouquets.map((b: any) => b.id)) + 1;
+  // Database handles IDs automatically (autoincrement)
+  return 0;
 }
 
 export async function readCategories() {
   try {
-    const data = await fs.readFile(categoriesPath, 'utf-8');
-    return JSON.parse(data);
-  } catch (err: any) {
-    if (err.code === 'ENOENT') return [];
-    throw err;
+    const categories = await prisma.category.findMany({
+      orderBy: { createdAt: 'desc' }
+    });
+    return categories.map(c => c.name);
+  } catch (err) {
+    return [];
   }
 }
 
 export async function writeCategories(data: string[]) {
-  await fs.writeFile(categoriesPath, JSON.stringify(data, null, 2), 'utf-8');
+  // Will be handled natively in the API by Prisma instead
 }
 
 export async function readSiteConfig() {
   try {
-    const data = await fs.readFile(siteConfigPath, 'utf-8');
-    return JSON.parse(data);
-  } catch (err: any) {
-    if (err.code === 'ENOENT') return DEFAULT_CONFIG;
-    throw err;
+    let config = await prisma.siteConfig.findUnique({
+      where: { id: 1 }
+    });
+    if (!config) {
+      config = await prisma.siteConfig.create({
+        data: { id: 1 }
+      });
+    }
+    return {
+      siteName: config.siteName,
+      siteDescription: config.siteDescription,
+      contact: {}, // legacy compat
+      hero: {
+        title: "Welcome to Ramz Florist",
+        subtitle: "Beautiful flowers for every occasion."
+      },
+      banner: {
+        text: config.bannerText,
+        isActive: config.bannerActive
+      },
+      about: {
+        images: config.aboutImages
+      },
+      features: [] // legacy compat
+    };
+  } catch (err) {
+    return DEFAULT_CONFIG;
   }
 }
 
 export async function writeSiteConfig(data: any) {
-  await fs.writeFile(siteConfigPath, JSON.stringify(data, null, 2), 'utf-8');
+  await prisma.siteConfig.upsert({
+    where: { id: 1 },
+    update: {
+      siteName: data.siteName || "Ramz Florist",
+      siteDescription: data.siteDescription || "Elegant Florist",
+      bannerText: data.banner?.text || "Welcome",
+      bannerActive: data.banner?.isActive || false,
+      aboutImages: data.about?.images || [],
+    },
+    create: {
+      id: 1,
+      siteName: data.siteName || "Ramz Florist",
+      siteDescription: data.siteDescription || "Elegant Florist",
+      bannerText: data.banner?.text || "Welcome",
+      bannerActive: data.banner?.isActive || false,
+      aboutImages: data.about?.images || [],
+    }
+  });
 }
 
 const DEFAULT_CONFIG = {
