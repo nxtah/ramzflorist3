@@ -20,6 +20,8 @@ const DEFAULT_CONFIG = {
   features: []
 };
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     let config = await prisma.siteConfig.findUnique({
