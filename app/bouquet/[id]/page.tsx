@@ -98,11 +98,6 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <span className="font-heading text-3xl font-bold text-primary-800">
               {formatPrice(bouquet.price)}
             </span>
-            {bouquet.originalPrice && (
-              <span className="text-lg text-muted-foreground line-through">
-                {formatPrice(bouquet.originalPrice)}
-              </span>
-            )}
           </div>
 
           <p className="font-body text-lg text-muted-foreground leading-relaxed mb-8 border-b border-dashed border-primary-100 pb-8">
@@ -114,7 +109,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               bouquetName={bouquet.name}
               bouquetPrice={bouquet.price}
               bouquetStock={bouquet.stock}
-              whatsappBaseUrl={siteConfig?.contact?.whatsapp}
+              whatsappBaseUrl={(siteConfig as any)?.contact?.whatsapp}
             />
 
             {/* Trust Badges */}
