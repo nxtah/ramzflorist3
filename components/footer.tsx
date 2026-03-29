@@ -37,7 +37,7 @@ export function Footer() {
                                 className="rounded-full bg-transparent border-white/30 text-white hover:bg-white hover:text-primary-900 transition-all text-lg h-14 px-8"
                                 asChild
                             >
-                                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                                <a href="https://instagram.com/ramaalynaa" target="_blank" rel="noopener noreferrer">
                                     <Instagram className="mr-2 w-5 h-5" /> Instagram
                                 </a>
                             </Button>
@@ -47,7 +47,7 @@ export function Footer() {
                                 className="rounded-full bg-transparent border-white/30 text-white hover:bg-white hover:text-primary-900 transition-all text-lg h-14 px-8"
                                 asChild
                             >
-                                <a href="https://wa.me/" target="_blank" rel="noopener noreferrer">
+                                <a href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer">
                                     <MessageCircle className="mr-2 w-5 h-5" /> WhatsApp
                                 </a>
                             </Button>

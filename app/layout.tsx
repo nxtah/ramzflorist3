@@ -72,8 +72,8 @@ export default function RootLayout({
               <Footer />
             </div>
 
-            <div className="relative z-10">
-              <div className="bg-background">
+            <div className="relative z-10 pointer-events-none">
+              <div className="bg-background pointer-events-auto">
                 <Navbar />
                 <main className="min-h-screen">{children}</main>
               </div>
