@@ -7,6 +7,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import BannerPromo from "@/components/banner-promo";
+import WhatsAppButton from "@/components/whatsapp-button";
 
 const instrumentSerif = Instrument_Serif({
   variable: "--font-heading",
@@ -79,6 +80,7 @@ export default function RootLayout({
               <div className="h-screen" aria-hidden />
             </div>
           </div>
+          <WhatsAppButton />
         </SmoothScroll>
       </body>
     </html>

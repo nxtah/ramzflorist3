@@ -51,4 +51,5 @@ export async function DELETE(req: Request, context: { params: Promise<{ id: stri
     return NextResponse.json({ error: 'Failed to delete bouquet' }, { status: 500 });
   }
 }
-\nexport const dynamic = 'force-dynamic';
+
+export const dynamic = 'force-dynamic';

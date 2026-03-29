@@ -23,15 +23,6 @@ export function validateCredentials(username: string, password: string) {
 
 export function verifyAuth(req: Request): boolean {
     const authHeader = req.headers.get('authorization');
-        return false;
-    }
-    const token = authHeader.split(' ')[1];
-    return verifyToken(token) !== null;
-}
-
-
-export function verifyAuth(req: Request): boolean {
-    const authHeader = req.headers.get('authorization');
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return false;
     }
