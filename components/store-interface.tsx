@@ -62,7 +62,7 @@ export default function StoreInterface({ categories, initialBouquets }: StoreInt
 
         if (searchQuery.trim()) {
             const query = searchQuery.toLowerCase();
-            result = result.filter(b => b.name.toLowerCase().includes(query) || b.description.toLowerCase().includes(query));
+            result = result.filter(b => b.name.toLowerCase().includes(query));
         }
 
         return result;
