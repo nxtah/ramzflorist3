@@ -5,11 +5,14 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { CategorySidebar } from '@/components/category-sidebar';
 import { BouquetCard, Bouquet } from '@/components/bouquet-card';
 import { Button } from '@/components/ui/button';
-import { Filter } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Filter, Search } from 'lucide-react';
 import {
     Sheet,
     SheetContent,
     SheetTrigger,
+    SheetHeader,
+    SheetTitle
 } from "@/components/ui/sheet"
 
 interface StoreInterfaceProps {
@@ -47,14 +50,23 @@ export default function StoreInterface({ categories, initialBouquets }: StoreInt
     };
 
     const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
 
-    // Filter bouquets based on selection
+    // Filter bouquets based on selection and search query
     const filteredBouquets = useMemo(() => {
-        if (selectedCategory === 'All') {
-            return initialBouquets;
+        let result = initialBouquets;
+        
+        if (selectedCategory !== 'All') {
+            result = result.filter(b => b.category === selectedCategory);
         }
-        return initialBouquets.filter(b => b.category === selectedCategory);
-    }, [selectedCategory, initialBouquets]);
+
+        if (searchQuery.trim()) {
+            const query = searchQuery.toLowerCase();
+            result = result.filter(b => b.name.toLowerCase().includes(query) || b.description.toLowerCase().includes(query));
+        }
+
+        return result;
+    }, [selectedCategory, searchQuery, initialBouquets]);
 
     return (
         <div className="container mx-auto max-w-screen-2xl px-6 py-8 md:py-12">
@@ -69,40 +81,53 @@ export default function StoreInterface({ categories, initialBouquets }: StoreInt
             </div>
 
             <div className="flex flex-col md:flex-row gap-8 lg:gap-12">
-                {/* Mobile Filter Trigger */}
-                <div className="md:hidden flex justify-between items-center mb-4">
-                    <span className="font-semibold text-primary-900">{filteredBouquets.length} Hasil</span>
-                    <Sheet open={isMobileFilterOpen} onOpenChange={setIsMobileFilterOpen}>
-                        <SheetTrigger asChild>
-                            <Button variant="outline" className="gap-2">
-                                <Filter className="h-4 w-4" /> Filter
-                            </Button>
-                        </SheetTrigger>
-                        <SheetContent side="left" className="w-[300px] sm:w-[400px] overflow-y-auto">
-                            <div className="py-6">
-                                <h3 className="font-heading text-xl font-bold text-primary-900 mb-6">Kategori</h3>
-                                <div className="flex flex-col gap-2">
-                                    <Button
-                                        variant={selectedCategory === 'All' ? 'default' : 'ghost'}
-                                        className="justify-start"
-                                        onClick={() => { handleCategoryChange('All'); setIsMobileFilterOpen(false); }}
-                                    >
-                                        Semua Buket
-                                    </Button>
-                                    {categories.map(cat => (
+                {/* Mobile Filter & Search Trigger */}
+                <div className="md:hidden flex flex-col gap-4 mb-2">
+                    <div className="flex gap-2">
+                        <Sheet open={isMobileFilterOpen} onOpenChange={setIsMobileFilterOpen}>
+                            <SheetTrigger asChild>
+                                <Button variant="outline" className="gap-2 shrink-0 md:hidden">
+                                    <Filter className="h-4 w-4" /> Kategori
+                                </Button>
+                            </SheetTrigger>
+                            <SheetContent side="right" className="w-[300px] sm:w-[400px] overflow-y-auto">
+                                <div className="py-6">
+                                    <SheetHeader>
+                  <SheetTitle className="font-heading text-xl font-bold text-primary-900 mb-6 text-left">Kategori</SheetTitle>
+                </SheetHeader>
+                                    <div className="flex flex-col gap-2">
                                         <Button
-                                            key={cat}
-                                            variant={selectedCategory === cat ? 'default' : 'ghost'}
+                                            variant={selectedCategory === 'All' ? 'default' : 'ghost'}
                                             className="justify-start"
-                                            onClick={() => { handleCategoryChange(cat); setIsMobileFilterOpen(false); }}
+                                            onClick={() => { handleCategoryChange('All'); setIsMobileFilterOpen(false); }}
                                         >
-                                            {cat}
+                                            Semua Buket
                                         </Button>
-                                    ))}
+                                        {categories.map(cat => (
+                                            <Button
+                                                key={cat}
+                                                variant={selectedCategory === cat ? 'default' : 'ghost'}
+                                                className="justify-start"
+                                                onClick={() => { handleCategoryChange(cat); setIsMobileFilterOpen(false); }}
+                                            >
+                                                {cat}
+                                            </Button>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        </SheetContent>
-                    </Sheet>
+                            </SheetContent>
+                        </Sheet>
+                        <div className="relative flex-1">
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                            <Input
+                                type="text"
+                                placeholder="Cari buket..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="pl-9 w-full bg-white/50"
+                            />
+                        </div>
+                    </div>
                 </div>
 
                 {/* Desktop Sidebar (30% width roughly) */}
@@ -123,7 +148,7 @@ export default function StoreInterface({ categories, initialBouquets }: StoreInt
                     </div>
 
                     {filteredBouquets.length > 0 ? (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
+                        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-4 md:gap-8">
                             {filteredBouquets.map((bouquet) => (
                                 <BouquetCard key={bouquet.id} bouquet={bouquet} />
                             ))}

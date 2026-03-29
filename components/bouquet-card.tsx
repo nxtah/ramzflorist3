@@ -50,16 +50,16 @@ export function BouquetCard({ bouquet }: BouquetCardProps) {
                     </div>
                 )}
             </div>
-            <CardFooter className="flex flex-col gap-2 items-start p-5 pt-4 flex-1 w-full">
-                <div className="flex w-full items-center justify-between gap-2 mb-1">
-                    <Badge variant="secondary" className="bg-primary-50 text-primary-700 hover:bg-primary-100 text-[10px] uppercase tracking-wider font-semibold border-none px-2 py-0.5">
+            <CardFooter className="flex flex-col gap-2 items-start p-4 md:p-5 pt-3 md:pt-4 flex-1 w-full">
+                <div className="flex flex-col md:flex-row w-full items-start md:items-center justify-between gap-1 md:gap-2 mb-1">
+                    <Badge variant="secondary" className="bg-primary-50 text-primary-700 hover:bg-primary-100 text-[10px] uppercase tracking-wider font-semibold border-none px-2 py-0.5 w-fit">
                         {bouquet.category}
                     </Badge>
-                    <span className="font-heading font-bold text-xl md:text-2xl text-primary-900">
+                    <span className="font-heading font-bold text-lg md:text-2xl text-primary-900 mt-1 md:mt-0">
                         {formatPrice(bouquet.price)}
                     </span>
                 </div>
-                <h3 className="font-body text-base font-semibold text-charcoal group-hover:text-primary-700 transition-colors line-clamp-2" title={bouquet.name}>
+                <h3 className="font-body text-sm md:text-base font-semibold text-charcoal group-hover:text-primary-700 transition-colors line-clamp-2" title={bouquet.name}>
                     <Link href={`/bouquet/${bouquet.id}`}>{bouquet.name}</Link>
                 </h3>
             </CardFooter>

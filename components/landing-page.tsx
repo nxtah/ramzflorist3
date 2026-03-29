@@ -151,7 +151,7 @@ export default function LandingPage({ featuredBouquets, categories }: LandingPag
                 </div>
 
                 <div className="container mx-auto max-w-screen-2xl px-4 md:px-6">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
                         {featuredBouquets.slice(0, 8).map((bouquet) => (
                             <BouquetCard key={bouquet.id} bouquet={bouquet} />
                         ))}

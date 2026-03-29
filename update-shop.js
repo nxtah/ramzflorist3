@@ -1,17 +1,19 @@
-"use client";
+const fs = require('fs');
+
+const content = `"use client";
 import { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Filter, Search } from "lucide-react";
 
 import { CategorySidebar } from '@/components/category-sidebar';
 import { BouquetCard, Bouquet } from '@/components/bouquet-card';
 
 export default function ShopPage() {
-  const [categories, setCategories] = useState<string[]>([]);
-  const [bouquets, setBouquets] = useState<Bouquet[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [categories, setCategories] = useState([]);
+  const [bouquets, setBouquets] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
@@ -45,9 +47,7 @@ export default function ShopPage() {
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[400px] overflow-y-auto">
               <div className="py-6">
-                <SheetHeader>
-                  <SheetTitle className="font-heading text-xl font-bold text-primary-900 mb-6 text-left">Kategori</SheetTitle>
-                </SheetHeader>
+                <h3 className="font-heading text-xl font-bold text-primary-900 mb-6">Kategori</h3>
                 <div className="flex flex-col gap-2">
                   <Button
                     variant={selectedCategory === 'All' ? 'default' : 'ghost'}
@@ -123,3 +123,6 @@ export default function ShopPage() {
     </main>
   );
 }
+`;
+
+fs.writeFileSync('app/shop/page.tsx', content);
